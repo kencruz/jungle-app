@@ -14,9 +14,23 @@ RSpec.describe Product, type: :model do
       @category = Category.new(:name => "Computer Accessories")
       @category.save
 
+
       @product = Product.new
       @product.category = @category
       @product.price = 199.99
+      @product.quantity = 10
+
+      expect(@product).to_not be_valid
+    end
+
+    it "is not valid without a price" do
+      @category = Category.new(:name => "Computer Accessories")
+      @category.save
+
+
+      @product = Product.new
+      @product.category = @category
+      @product.name = "Mouse"
       @product.quantity = 10
 
       expect(@product).to_not be_valid
