@@ -10,6 +10,18 @@ RSpec.describe Product, type: :model do
       expect(@category.products.count).to be(1)
     end
 
+    it "is not valid without a name" do
+      @category = Category.new(:name => "Computer Accessories")
+      @category.save
+
+      @product = Product.new
+      @product.category = @category
+      @product.price = 199.99
+      @product.quantity = 10
+
+      expect(@product).to_not be_valid
+    end
+
   end
 end
 
