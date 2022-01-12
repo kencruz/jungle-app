@@ -81,6 +81,17 @@ RSpec.describe User, type: :model do
 
       expect(@user).to_not be_valid
     end
+
+    it "is not valid without a password of minimum length" do
+      @user = User.new
+      @user.first_name = "Ken"
+      @user.last_name = "Masters"
+      @user.email = "test@example.com"
+      @user.password = "1234123"
+      @user.password_confirmation = "1234123"
+
+      expect(@user).to_not be_valid
+    end
   end
 
 end
