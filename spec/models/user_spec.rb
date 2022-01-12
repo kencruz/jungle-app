@@ -94,4 +94,27 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'authenticate_with_credentials' do
+    before do
+      @user = User.new
+      @user.first_name = "Ken"
+      @user.last_name = "Masters"
+      @user.email = "test@example.com"
+      @user.password = "12341234"
+      @user.password_confirmation = "12341234"
+      @user.save
+    end
+
+    it "should return a user with a valid password" do
+      user = User.authenticate_with_credentials('test@example.com', '12341234')
+      expect(user).to eql(@user)
+    end
+
+    it "should return nil with an invalid password" do
+      user = User.authenticate_with_credentials('test@example.com', 'a2341234')
+      expect(user).to eql(nil)
+    end
+
+  end
+
 end
