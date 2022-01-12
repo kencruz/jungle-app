@@ -32,6 +32,25 @@ RSpec.describe User, type: :model do
 
       expect(@user).to be_valid
     end
+
+    it "is not valid without a unique email" do
+      @user1 = User.new
+      @user1.first_name = "Ken"
+      @user1.last_name = "Masters"
+      @user1.email = "test@example.com"
+      @user1.password = "12341234"
+      @user1.password_confirmation = "12341234"
+      @user1.save
+
+      @user2 = User.new
+      @user2.first_name = "Ryu"
+      @user2.last_name = "Hayabusha"
+      @user2.email = "TEST@example.com"
+      @user2.password = "12341234"
+      @user2.password_confirmation = "12341234"
+
+      expect(@user2).to_not be_valid
+    end
   end
 
 end
